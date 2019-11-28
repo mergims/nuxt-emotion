@@ -1,4 +1,3 @@
-"use strict";
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -21,13 +20,10 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var clsx_1 = __importDefault(require("clsx"));
-var utils_1 = require("@emotion/utils");
-var serialize_1 = require("@emotion/serialize");
+import clsx from 'clsx';
+import { getRegisteredStyles, insertStyles } from '@emotion/utils';
+import { serializeStyles } from '@emotion/serialize';
+import { emotionCache } from '.';
 var ILLEGAL_ESCAPE_SEQUENCE_ERROR = process.env.NODE_ENV === 'production' ?
     '' :
     "You have illegal escape sequence in your template literal, most likely inside content's property value.\nBecause you write your CSS inside a JavaScript string you actually have to do double escaping, so for example \"content: '\\00d7';\" should become \"content: '\\\\00d7';\".\nYou can read more about this here:\nhttps://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#ES2018_revision_of_illegal_escape_sequences";
@@ -79,7 +75,7 @@ var createStyled = function (tag, options) {
             },
             render: function (h, _a) {
                 var data = _a.data, children = _a.children, parent = _a.parent, injections = _a.injections;
-                var cache = parent.$emotionCache;
+                var cache = emotionCache;
                 var _b = data.attrs || {}, as = _b.as, value = _b.value, restAttrs = __rest(_b, ["as", "value"]);
                 var className = data.staticClass ? data.staticClass + " " : '';
                 var finalTag = as || baseTag;
@@ -87,10 +83,10 @@ var createStyled = function (tag, options) {
                 var mergedProps = __assign(__assign(__assign({}, data.attrs), { theme: injections.theme }), parent.$evergarden);
                 var domProps = { value: value };
                 if (data.class) {
-                    className += utils_1.getRegisteredStyles(cache.registered, classInterpolations, clsx_1.default(data.class));
+                    className += getRegisteredStyles(cache.registered, classInterpolations, clsx(data.class));
                 }
-                var serialized = serialize_1.serializeStyles(styles.concat(classInterpolations), cache.registered, mergedProps);
-                utils_1.insertStyles(cache, serialized, typeof finalTag === 'string');
+                var serialized = serializeStyles(styles.concat(classInterpolations), cache.registered, mergedProps);
+                insertStyles(cache, serialized, typeof finalTag === 'string');
                 className += cache.key + "-" + serialized.name;
                 if (targetClassName !== undefined) {
                     className += " " + targetClassName;
@@ -121,4 +117,4 @@ var createStyled = function (tag, options) {
         return Styled;
     };
 };
-exports.styled = createStyled;
+export var styled = createStyled;

@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { getRegisteredStyles, insertStyles } from '@emotion/utils'
 import { serializeStyles } from '@emotion/serialize'
+import { emotionCache } from '.'
 
 const ILLEGAL_ESCAPE_SEQUENCE_ERROR =
     process.env.NODE_ENV === 'production' ?
@@ -64,7 +65,7 @@ const createStyled = (tag, options: any = {}) => {
             },
 
             render(h, { data, children, parent, injections }) {
-                const cache = parent.$emotionCache
+                const cache = emotionCache // parent.$emotionCache
                 const { as, value, ...restAttrs } = data.attrs || {}
 
                 let className = data.staticClass ? `${data.staticClass} ` : ''
