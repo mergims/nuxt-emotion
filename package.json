@@ -13,11 +13,14 @@
     "emotion": "^10.0.23"
   },
   "devDependencies": {
+    "@nuxt/types": "^0.5.3",
     "@nuxtjs/eslint-config": "^2.0.0",
     "@types/node": "^12.12.14",
     "@typescript-eslint/eslint-plugin": "^2.9.0",
     "@typescript-eslint/parser": "^2.9.0",
     "eslint": "^6.7.1",
+    "eslint-config-vue": "^2.0.2",
+    "eslint-plugin-vue": "^6.0.1",
     "ts-node": "^8.5.2",
     "typescript": "^3.7.2",
     "vue-tsx-support": "^2.3.2"

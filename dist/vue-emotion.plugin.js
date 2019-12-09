@@ -1,5 +1,5 @@
-import { hydrate } from 'emotion';
+import { hydrate } from 'emotion'
 if (process.client) {
-    var ids = window.$emotionSSRIds;
-    hydrate(ids);
+  const ids = window.$emotionSSRIds
+  hydrate(ids)
 }
