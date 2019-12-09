@@ -5,7 +5,7 @@ export const emotionCache = Object.assign(createCache(), { compat: true })
 const { extractCritical } = createEmotionServer(emotionCache)
 
 export { styled } from './styled'
-// export { createGlobalStyle } from './global'
+export { createGlobalStyle } from './global'
 
 export default function () {
   this.nuxt.hook('build:before', () => {
